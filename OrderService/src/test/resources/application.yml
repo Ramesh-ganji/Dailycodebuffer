@@ -1,0 +1,19 @@
+
+server:
+  port: 6061
+
+spring:
+  application:
+    name: OrderService
+
+  datasource:
+    url: jdbc:h2:mem:order
+    username: ra
+    password: password
+    driverClassName: org.h2.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  config:
+    import:optional:configserver:http://localhost:6062
+

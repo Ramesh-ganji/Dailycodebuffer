@@ -1,0 +1,38 @@
+server:
+  port: 6064
+spring:
+  application:
+    name: CloudGateway
+  config:
+    import: configserver:http://localhost:6062
+  cloud:
+    gateway:
+      routes:
+        - id: OrderService
+          uri: lb://OrderService
+          predicates:
+            - Path=/order/**
+          filters:
+              - name: CircuitBreaker
+                args:
+                  name: OrderService
+                  fallbackuri: forward:/orderServiceFallBack
+        - id: PaymentService
+          uri: lb://PaymentService
+          predicates:
+            - Path=/payment/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: PaymentService
+                fallbackuri: forward:/paymentServiceFallBack
+        - id: ProductService
+          uri: lb://ProductService
+          predicates:
+            - Path=/product/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: ProductService
+                fallbackuri: forward:/productServiceFallBack
+

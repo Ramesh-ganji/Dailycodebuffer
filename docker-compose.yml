@@ -1,0 +1,22 @@
+version: '3'
+services:
+    serviceregisrty:
+        image: 'dailycodebuffer/serviceregistry:0.0.1'
+        container_name: serviceregistry
+        ports:
+          - '8761:8761'
+    configserver:
+        image: 'dailycodebuffer/configserver:0.0.1'
+        container_name: configserver
+        ports:
+         - '6062:6062'
+        #environment:
+          # - Eureka_Server=http://serviceregistry:8761/eureka 
+        depends_on:
+          - serviceregistry
+    cloudgateway:
+        image: 'dailycodebuffer/cloudgateway:latest'
+        ports:
+          - '6064:6064'
+        depends_on:
+          - configserver             

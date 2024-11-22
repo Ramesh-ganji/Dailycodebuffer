@@ -1,0 +1,13 @@
+server:
+  port: 6062
+spring:
+  application:
+    name: ConfigServer
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Ramesh-ganji/spring-app-config
+          clone-on-start: true
+
+
